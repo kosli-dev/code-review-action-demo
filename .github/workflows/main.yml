@@ -69,12 +69,15 @@ jobs:
       
   code-review:
     needs: [pull-request]
-    uses: kosli-dev/control-actions/.github/actions/code-review@main
-    with:
-      base_ref: '1.0.0'
-      kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN }}
-      kosli_org: 'kosli-public'
-      kosli_search_flow_name: 'test-code-review-action'
-      kosli_code_review_attestation_type: 'code-review'
-      kosli_code_review_flow_name: 'test-code-review-action'
-      kosli_code_review_trail_name: ${{ github.sha }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Code Review
+        uses: kosli-dev/control-actions/.github/actions/code-review@main
+        with:
+          base_ref: '1.0.0'
+          kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN }}
+          kosli_org: 'kosli-public'
+          kosli_search_flow_name: 'test-code-review-action'
+          kosli_code_review_attestation_type: 'code-review'
+          kosli_code_review_flow_name: 'test-code-review-action'
+          kosli_code_review_trail_name: ${{ github.sha }}
