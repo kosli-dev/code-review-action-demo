@@ -85,5 +85,6 @@ jobs:
           kosli_org: 'kosli-public'
           kosli_search_flow_name: 'test-code-review-action'
           kosli_code_review_attestation_type: 'code-review'
+          kosli_code_review_attestation_name: 'code-review'
           kosli_code_review_flow_name: 'test-code-review-action'
           kosli_code_review_trail_name: ${{ github.sha }}
