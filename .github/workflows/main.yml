@@ -71,6 +71,12 @@ jobs:
     needs: [pull-request]
     runs-on: ubuntu-24.04
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
       - name: Code Review
         uses: kosli-dev/control-actions/.github/actions/code-review@main
         with:
