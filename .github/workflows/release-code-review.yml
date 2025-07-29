@@ -47,7 +47,7 @@ jobs:
       - name: Get latest release tag
         id: latest_release
         run: |
-          LATEST_TAG=$(git tag --sort=-version:refname | head -n 1)
+          LATEST_TAG=$(git tag --sort=-version:refname | head -n 2 | tail -n 1)
           echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
       - name: Code Review
