@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: create-code-review-type
-        uses: kosli-dev/control-actions/create-code-review-type@move-code-review
+        uses: kosli-dev/control-actions/create-code-review-type@main
         with:
           kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN}}
           kosli_org: "kosli-public"
