@@ -12,3 +12,4 @@ jobs:
         with:
           kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN}}
           kosli_org: "kosli-public"
+          kosli_cli_version: ${{ vars.KOSLI_CLI_VERSION }}
