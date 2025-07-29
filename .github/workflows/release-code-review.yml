@@ -7,11 +7,10 @@ on:
 
 env:
   KOSLI_ORG: kosli-public
-  KOSLI_FLOW: code-review-demo-release
+  KOSLI_FLOW: test-code-review-action
   KOSLI_API_TOKEN: '${{ secrets.KOSLI_PUBLIC_API_TOKEN }}'
 
 jobs:
-
   setup:
     runs-on: ubuntu-24.04
     steps:
@@ -25,23 +24,34 @@ jobs:
         with:
           version: ${{ vars.KOSLI_CLI_VERSION }}
 
-      - name: Create Kosli Flow
-        run: kosli create flow ${{ env.KOSLI_FLOW }}
-          --template-file release-template.yml
-          --description "Code Review Demo Release"
+      # - name: Create Kosli Flow
+      #   run: kosli create flow ${{ env.KOSLI_FLOW }}
+      #     --template-file release-template.yml
+      #     --description "Code Review Demo Release"
 
       - name: Begin Kosli Trail
         run: kosli begin trail "${{ github.ref_name }}"
           --flow ${{ env.KOSLI_FLOW }}
 
+
   code-review:
     needs: [setup]
-    uses: ./.github/workflows/code-review.yml
-    with:
-      kosli-org: kosli-public
-      kosli-build-flow: code-review-demo
-      kosli-release-flow: code-review-demo-release
-      kosli-trail: ${{ github.ref_name }}
-      base-tag: "1.0.0"
-    secrets:
-      kosli-api-token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN }} 
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Code Review
+        uses: kosli-dev/control-actions/.github/actions/code-review@main
+        with:
+          base_ref: '1.0.0'
+          kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN }}
+          kosli_org: 'kosli-public'
+          kosli_search_flow_name: 'test-code-review-action'
+          kosli_code_review_attestation_type: 'code-review'
+          kosli_code_review_attestation_name: 'code-review'
+          kosli_code_review_flow_name: 'test-code-review-action'
+          kosli_code_review_trail_name: ${{ github.ref_name }}
