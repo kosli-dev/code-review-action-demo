@@ -1,0 +1,14 @@
+name: Create code review type
+
+on:
+  workflow_dispatch
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create-code-review-type
+        uses: kosli-dev/control-actions/create-code-review-type@move-code-review
+        with:
+          kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN}}
+          kosli_org: "kosli-public"
