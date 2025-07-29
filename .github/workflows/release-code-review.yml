@@ -54,6 +54,7 @@ jobs:
         uses: kosli-dev/control-actions/code-review@main
         with:
           base_ref: ${{ steps.latest_release.outputs.tag }}
+          release_ref: ${{ github.ref_name }}
           kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN }}
           kosli_org: 'kosli-public'
           kosli_search_flow_name: 'test-code-review-action'
