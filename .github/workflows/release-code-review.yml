@@ -3,11 +3,11 @@ name: Release Code Review
 on:
   push:
     tags:
-      - 's*-1.0.*'
+      - 'v*.*.*'
 
 env:
   KOSLI_ORG: kosli-public
-  KOSLI_FLOW: test-code-review-action
+  KOSLI_FLOW: test-code-review-action-release
   KOSLI_API_TOKEN: '${{ secrets.KOSLI_PUBLIC_API_TOKEN }}'
 
 jobs:
@@ -24,10 +24,10 @@ jobs:
         with:
           version: ${{ vars.KOSLI_CLI_VERSION }}
 
-      # - name: Create Kosli Flow
-      #   run: kosli create flow ${{ env.KOSLI_FLOW }}
-      #     --template-file release-template.yml
-      #     --description "Code Review Demo Release"
+      - name: Create Kosli Flow
+        run: kosli create flow ${{ env.KOSLI_FLOW }}
+          --template-file release-template.yml
+          --description "Code Review Demo Release"
 
       - name: Begin Kosli Trail
         run: kosli begin trail "${{ github.ref_name }}"
@@ -44,14 +44,20 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+      - name: Get latest release tag
+        id: latest_release
+        run: |
+          LATEST_TAG=$(git tag --sort=-version:refname | head -n 1)
+          echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+
       - name: Code Review
-        uses: kosli-dev/control-actions/.github/actions/code-review@main
+        uses: kosli-dev/control-actions/code-review@main
         with:
-          base_ref: '1.0.0'
+          base_ref: ${{ steps.latest_release.outputs.tag }}
           kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN }}
           kosli_org: 'kosli-public'
           kosli_search_flow_name: 'test-code-review-action'
           kosli_code_review_attestation_type: 'code-review'
           kosli_code_review_attestation_name: 'code-review'
-          kosli_code_review_flow_name: 'test-code-review-action'
+          kosli_code_review_flow_name: 'test-code-review-action-release'
           kosli_code_review_trail_name: ${{ github.ref_name }}
