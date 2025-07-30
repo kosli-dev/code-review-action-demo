@@ -1,4 +1,4 @@
 This is just a file to test out that changes to source code
 can trigger a GH action and reporting to Kosli
 
-counter=25
+counter=26
