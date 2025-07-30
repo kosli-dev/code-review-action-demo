@@ -85,7 +85,9 @@ function wait_for_pr_approval
 
 function increment_version {
     local current_tag="$1"
-    echo "$current_tag" | sed -E 's/([0-9]+)$/echo $((\1+1))/e'
+    local last_digit=$(echo "$current_tag" | sed -E 's/.*([0-9]+)$/\1/')
+    local incremented=$((last_digit + 1))
+    echo "$current_tag" | sed -E "s/[0-9]+$/$incremented/"
 }
 
 main()
