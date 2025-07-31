@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: override-pull-request
-        uses: kosli-dev/control-actions/override-pull-request@main
+        uses: kosli-dev/control-actions/override-pull-request@v1
         with:
           kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN}}
           kosli_org: "kosli-public"

@@ -51,7 +51,7 @@ jobs:
           echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
       - name: Code Review
-        uses: kosli-dev/control-actions/code-review@main
+        uses: kosli-dev/control-actions/code-review@v1
         with:
           base_ref: ${{ steps.latest_release.outputs.tag }}
           release_ref: ${{ github.ref_name }}
