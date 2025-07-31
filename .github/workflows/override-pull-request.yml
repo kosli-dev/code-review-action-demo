@@ -9,6 +9,10 @@ on:
       trail-name:
         description: "The Kosli trail for the pull-request override"
         required: true
+      attestation-name:
+        description: "The name of the pull_request attestation we want to override"
+        required: true
+        default: "pull-request"
       override-reason:
         description: "The reason for the override"
         required: true
@@ -24,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: override-pull-request
-        uses: kosli-dev/control-actions/override-pull-request@override-action
+        uses: kosli-dev/control-actions/override-pull-request@main
         with:
           kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN}}
           kosli_org: "kosli-public"
