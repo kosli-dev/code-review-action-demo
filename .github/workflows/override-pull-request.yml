@@ -1,0 +1,35 @@
+name: Override a pull request attestation
+
+on:
+  workflow_dispatch:
+    inputs:
+      flow-name:
+        description: "The Kosli flow for the pull-request override"
+        required: true
+      trail-name:
+        description: "The Kosli trail for the pull-request override"
+        required: true
+      override-reason:
+        description: "The reason for the override"
+        required: true
+      override-compliance:
+        description: "Compliance value for override"
+        required: true
+        type: boolean
+        default: true
+
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - name: override-pull-request
+        uses: kosli-dev/control-actions/override-pull-request@override-action
+        with:
+          kosli_api_token: ${{ secrets.KOSLI_PUBLIC_API_TOKEN}}
+          kosli_org: "kosli-public"
+          kosli_flow_name: ${{ inputs.flow-name }}
+          kosli_trail_name: ${{ inputs.trail-name }}
+          override_reason: ${{ inputs.override-reason }}
+          override_compliance: ${{ inputs.override-compliance }}
+
