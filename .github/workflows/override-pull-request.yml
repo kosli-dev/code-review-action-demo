@@ -34,6 +34,7 @@ jobs:
           kosli_org: "kosli-public"
           kosli_flow_name: ${{ inputs.flow-name }}
           kosli_trail_name: ${{ inputs.trail-name }}
+          attestation_name: ${{ inputs.attestation-name }}
           override_reason: ${{ inputs.override-reason }}
           override_compliance: ${{ inputs.override-compliance }}
 
